@@ -75,7 +75,7 @@ async (accessToken, refreshToken, profile, done) => {
       user = new User({
         githubId: profile.id,
         username: profile.username,
-        password: null // GitHub login users don't have passwords
+        password: "github" // GitHub login users don't have passwords
       });
       await user.save();
     }

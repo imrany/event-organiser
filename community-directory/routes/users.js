@@ -16,13 +16,30 @@ const router = express.Router();
 router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
 
 // GitHub callback route
-router.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  (req, res) => {
-    // Successful authentication
-    res.redirect('/events');
-  }
-);
+router.get('/auth/github/callback', (req,res,next)=>{
+  // passport.authenticate('github', { failureRedirect: '/login' }),
+  // (req, res) => {
+  //   // Successful authentication
+  //   res.redirect('/events');
+  // }
+
+  passport.authenticate('github', (err, user, info) => { 
+    if (err) { 
+      return next(err); 
+    } 
+    if (!user) { 
+      return res.redirect('/login'); 
+    } 
+    req.logIn(user, (err) => { 
+      if (err) { 
+        return next(err); 
+      } 
+      // Save the logged-in username in the session 
+      req.session.username = user.username; 
+      return res.redirect('/events'); 
+    }); 
+  })(req, res, next); 
+});
 
 // Register page (GET)
 router.get('/register',isAuthenticated, (req, res) => {
@@ -83,8 +100,7 @@ router.get('/login', (req, res) => {
 //   console.log(req.user)
 //   res.redirect('/');
 // });
-
-// Optionally, you could handle custom responses like below if needed: 
+ 
 router.post('/login', (req, res, next) => { 
   passport.authenticate('local', (err, user, info) => { 
     if (err) { 
