@@ -21,13 +21,13 @@
           <div class="col-3 mb-4 px-2" style="margin: 2px;">
             <div class="card"  style="width: 18rem;">
               {{#if this.photo}}
-                <img src="{{this.photo}}" class="card-img-top" alt="{{this.name}}">
+                <img src="{{this.photo}}" class="card-img-top" style="height: 200px; object-fit:cover;" alt="{{this.name}}">
               {{else}}
                 <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Default event image">
               {{/if}}
               <div class="card-body">
                 <h5 class="card-title">{{this.name}}</h5>
-                <p class="card-text">{{this.description}}</p>
+                <p class="card-text">{{this.descriptionPreview}}</p>
                 <p class="card-text"><strong>Location:</strong> {{this.location}}</p>
                 <p class="card-text"><strong>Date:</strong> {{this.date}}</p>
                 <div class="row">
@@ -48,13 +48,13 @@
           <div class="col-3 mb-4 px-2" style="margin: 2px;">
             <div class="card"  style="width: 18rem;">
               {{#if this.photo}}
-                <img src="{{this.photo}}" class="card-img-top" alt="{{this.name}}">
+                <img src="{{this.photo}}" class="card-img-top" style="height: 200px; object-fit:cover;" alt="{{this.name}}">
               {{else}}
                 <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Default event image">
               {{/if}}
               <div class="card-body">
                 <h5 class="card-title">{{this.name}}</h5>
-                <p class="card-text">{{this.description}}</p>
+                <p class="card-text">{{this.descriptionPreview}}</p>
                 <p class="card-text"><strong>Location:</strong> {{this.location}}</p>
                 <p class="card-text"><strong>Date:</strong> {{this.date}}</p>
               </div>

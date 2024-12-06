@@ -50,8 +50,19 @@ router.post('/events', upload.single('photo'), async (req, res) => {
 // Show all events (public page)
 router.get('/events', async (req, res) => {
   try {
-    const events = await Event.find(); // Fetch all events
-    res.render('events/index', { events, title:"Events", username:req.session.username });
+    const events = await Event.find().sort({created_at:-1}); // Fetch all events
+    const updatedEvents = events.map(event => ({ 
+      id: event._id,
+      name: event.name,
+      description: event.description,
+      date: event.date,
+      location: event.location,
+      photo: event.photo,
+      descriptionPreview: `${event.description.slice(0, 120)}...` 
+    }));
+
+    console.log(updatedEvents)
+    res.render('events/index', { events:updatedEvents, title:"Events", username:req.session.username });
   } catch (err) {
     res.status(500).send('Error retrieving events.');
   }
