@@ -12,13 +12,13 @@
     <h1 class="text-center mb-4">Community Events</h1>
     {{#if username}}
       <div class="d-flex justify-content-between mb-3">
-        <a href="/events/new" class="btn btn-primary">Create New Event</a>
-        <a href="/" class="btn btn-secondary">Back to Home</a>
+        <a href="/events/new" class="btn btn-primary" style="margin:0 3px 0 0;">Create New Event</a>
+        <a href="/" class="btn btn-secondary" style="margin:0 0 0 3px;">Back to Home</a>
       </div>
 
       <div class="row">
         {{#each events}}
-          <div class="col-3 mb-4 px-2" style="margin: 2px;">
+          <div class="col-12 col-md-6 col-lg-3 mb-4 px-2" style="margin: 2px;">
             <div class="card"  style="width: 18rem;">
               {{#if this.photo}}
                 <img src="{{this.photo}}" class="card-img-top" style="height: 200px; object-fit:cover;" alt="{{this.name}}">
@@ -45,7 +45,7 @@
     {{else}}
       <div class="row">
         {{#each events}}
-          <div class="col-3 mb-4 px-2" style="margin: 2px;">
+          <div class="col-12 col-md-6 col-lg-3 mb-4 px-2" style="margin: 2px;">
             <div class="card"  style="width: 18rem;">
               {{#if this.photo}}
                 <img src="{{this.photo}}" class="card-img-top" style="height: 200px; object-fit:cover;" alt="{{this.name}}">
