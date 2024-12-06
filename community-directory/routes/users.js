@@ -50,26 +50,29 @@ router.get('/register',isAuthenticated, (req, res) => {
 router.post('/register', async (req, res) => {
   try {
     console.log('Request Body:', req.body); // Debugging
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-      return res.status(400).send('Username and password are required');
-    }
-
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).send('Username already taken');
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = new User({ username, password:hashedPassword });
-    await newUser.save();
-    if(newUser){
-      req.session.username = newUser.username
-      res.redirect('/events');
+    const { username, password, passwordConfirm } = req.body;
+    if(password==passwordConfirm){
+      if (!username || !password) {
+        return res.status(400).send('Username and password are required');
+      }
+  
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+        return res.status(400).send('Username already taken');
+      }
+  
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      const newUser = new User({ username, password:hashedPassword });
+      await newUser.save();
+      if(newUser){
+        req.session.username = newUser.username
+        res.redirect('/events');
+      }else{
+        res.status(500).send('Failed to create user');
+      }
     }else{
-      res.status(500).send('Failed to create user');
+      res.status(201).send("Password doesn't match, try again");
     }
   } catch (err) {
     console.error(err);

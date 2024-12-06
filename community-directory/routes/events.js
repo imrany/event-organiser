@@ -61,7 +61,6 @@ router.get('/events', async (req, res) => {
       descriptionPreview: `${event.description.slice(0, 120)}...` 
     }));
 
-    console.log(updatedEvents)
     res.render('events/index', { events:updatedEvents, title:"Events", username:req.session.username });
   } catch (err) {
     res.status(500).send('Error retrieving events.');
