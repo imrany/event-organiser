@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Listings</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Community Events</h1>
+    {{#if username}}
+      <div class="d-flex justify-content-between mb-3">
+        <a href="/events/new" class="btn btn-primary">Create New Event</a>
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+      </div>
+
+      <div class="row">
+        {{#each events}}
+          <div class="col-3 mb-4 px-2" style="margin: 2px;">
+            <div class="card"  style="width: 18rem;">
+              {{#if this.photo}}
+                <img src="{{this.photo}}" class="card-img-top" alt="{{this.name}}">
+              {{else}}
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Default event image">
+              {{/if}}
+              <div class="card-body">
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text">{{this.description}}</p>
+                <p class="card-text"><strong>Location:</strong> {{this.location}}</p>
+                <p class="card-text"><strong>Date:</strong> {{this.date}}</p>
+                <div class="row">
+                  <a href="/events/{{this._id}}/edit" class="col btn btn-warning">Edit</a>
+                  <form class="col" action="/events/{{this._id}}/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </div>
+                {{!-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="row">
+        {{#each events}}
+          <div class="col-3 mb-4 px-2" style="margin: 2px;">
+            <div class="card"  style="width: 18rem;">
+              {{#if this.photo}}
+                <img src="{{this.photo}}" class="card-img-top" alt="{{this.name}}">
+              {{else}}
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Default event image">
+              {{/if}}
+              <div class="card-body">
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text">{{this.description}}</p>
+                <p class="card-text"><strong>Location:</strong> {{this.location}}</p>
+                <p class="card-text"><strong>Date:</strong> {{this.date}}</p>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
