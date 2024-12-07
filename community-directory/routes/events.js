@@ -52,7 +52,7 @@ router.get('/events', async (req, res) => {
   try {
     const events = await Event.find().sort({created_at:-1}); // Fetch all events
     const updatedEvents = events.map(event => ({ 
-      id: event._id,
+      _id: event._id,
       name: event.name,
       description: event.description,
       date: event.date,
